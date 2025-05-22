@@ -60,7 +60,7 @@
       font-size: 15px;
       background-color: #f9fafb;
     }
-    
+
     .login100-form-btn {
       width: 100%;
       margin-top: 24px;
@@ -112,12 +112,9 @@
 
       <form action="" method="POST">
         @csrf
-        <input type="email" name="mail" placeholder="Email đăng nhập" required /> @vinhgiapottery.com
+        <input type="email" name="mail" placeholder="Email đăng nhập" required />
         <input type="password" name="pass" placeholder="Mật khẩu" required />
         <button class="login100-form-btn" type="submit">Đăng nhập</button>
-
-        <!-- Đây là ví dụ lỗi nếu cần -->
-        <!-- <div class="alert-danger">Sai thông tin đăng nhập</div> -->
       </form>
     </div>
   </div>
