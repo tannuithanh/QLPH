@@ -44,28 +44,46 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle d-flex align-items-center" href="#"
                             id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img src="https://i.pravatar.cc/40" alt="avatar" class="rounded-circle me-2"
+                            <img src="{{ asset('images/User_icon_2.png') }}" alt="avatar" class="rounded-circle me-2"
                                 width="40" height="40">
-                            Demo User
+                            <div class="d-flex flex-column align-items-start">
+                                <span>{{ $user->name }}</span>
+                                <small class="text-muted" style="font-size: 12px;">{{ $user->email }}</small>
+                            </div>
                         </a>
+
+
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
                             <li>
                                 <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <i class="bi bi-person me-2"></i> <!-- icon người dùng -->
-                                    Trang cá nhân
+                                    <i class="bi bi-shield-lock me-2"></i> <!-- icon phân quyền -->
+                                    Quản lý phân quyền
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item d-flex align-items-center" href="{{ route('showUserManager') }}">
+                                    <i class="bi bi-people me-2"></i> <!-- icon tài khoản -->
+                                    Quản lý tài khoản
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item d-flex align-items-center" href="{{ route('showDepartmentManager') }}">
+                                    <i class="bi bi-building me-2"></i> <!-- icon phòng ban -->
+                                    Quản lý phòng ban
                                 </a>
                             </li>
                             <li>
                                 <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <i class="bi bi-gear me-2"></i> <!-- icon cài đặt -->
-                                    Cài đặt
+                                    <i class="bi bi-door-open me-2"></i> Quản lý phòng họp
                                 </a>
                             </li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
+
                             <li>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
+                                <a class="dropdown-item d-flex align-items-center" href="#"
+                                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                     <i class="bi bi-box-arrow-right me-2"></i> <!-- icon đăng xuất -->
                                     Đăng xuất
                                 </a>
@@ -78,3 +96,7 @@
         </div>
     </nav>
 </header>
+
+<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+    @csrf
+</form>

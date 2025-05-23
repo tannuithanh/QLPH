@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Hệ thống Portal - Công ty TNHH Vinh Gia</title>
-  <link rel="stylesheet" href="style.css">
   <style>
     html, body {
       margin: 0;
@@ -14,7 +13,7 @@
 
     .login-page {
       height: 100%;
-      background: url('images/Login.jpg') no-repeat center center/cover;
+      background: url('{{ asset('images/Login.jpg') }}') no-repeat center center/cover;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -65,7 +64,7 @@
       width: 100%;
       margin-top: 24px;
       padding: 12px;
-      background-color: #C06252; /* màu chủ đạo */
+      background-color: #C06252;
       border: none;
       border-radius: 8px;
       color: white;
@@ -106,16 +105,24 @@
   <div class="auth-container">
     <div class="right-panel">
       <div class="login-header">
-        <img src="{{asset('images/login.png')}}" alt="Logo" />
+        <img src="{{ asset('images/login.png') }}" alt="Logo" />
         <div class="title-text">LỊCH HỌP ĐIỆN TỬ</div>
       </div>
 
-      <form action="" method="POST">
+     
+      <form action="{{ route('login.submit') }}" method="POST">
         @csrf
-        <input type="email" name="mail" placeholder="Email đăng nhập" required />
-        <input type="password" name="pass" placeholder="Mật khẩu" required />
+        <input type="email" name="email" placeholder="Email đăng nhập" required value="{{ old('email') }}" />
+        <input type="password" name="password" placeholder="Mật khẩu" required />
         <button class="login100-form-btn" type="submit">Đăng nhập</button>
       </form>
+       {{-- HIỂN THỊ LỖI --}}
+      @if ($errors->any())
+        <div class="alert-danger">
+          {{ $errors->first() }}
+        </div>
+      @endif
+
     </div>
   </div>
 </div>

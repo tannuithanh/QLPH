@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Controllers\DashboardController;
-use Illuminate\Support\Facades\Route;
-
-Route::get('/Dashboard', [DashboardController::class, 'index']);
-Route::get('/', [DashboardController::class, 'loginView']);
+require __DIR__.'/auth.php';
+require __DIR__.'/pages/settings.php';
+require __DIR__.'/roles.php';
+require __DIR__.'/departments.php';
+require __DIR__.'/pages/dashboardRoute.php';

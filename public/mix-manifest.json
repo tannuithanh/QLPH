@@ -1,4 +1,6 @@
 {
     "/js/app.js": "/js/app.js?id=90d276894a624538368783dee141d3fd",
-    "/css/app.css": "/css/app.css?id=8c82c51b6758e850e1ca4c4795970232"
+    "/js/Setting/handleDepartment.js": "/js/Setting/handleDepartment.js?id=24f4ec409173a9a3a1890fa93adb0014",
+    "/js/Setting/handleUsers.js": "/js/Setting/handleUsers.js?id=e747017e26e5f7f2341c2627b8a54ad6",
+    "/css/app.css": "/css/app.css?id=29b291523344e1fa12321687e130fa16"
 }

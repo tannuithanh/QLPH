@@ -2110,6 +2110,29 @@ url(/fonts/vendor/bootstrap-icons/bootstrap-icons.woff?1295669cd4e305c97f2cfc16d
 .bi-globe-central-south-asia-fill::before { content: "\f91d"; }
 .bi-globe-europe-africa-fill::before { content: "\f91e"; }
 
+main.fade-in {
+    position: relative;
+    z-index: 1051;
+}
+
+
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+body {
+    background-color: #6d6d6d0a;
+}
+
 .page-content {
     padding: calc(95px + 24px) calc(24px / 2) 60px calc(24px / 2);
 }
@@ -2146,18 +2169,18 @@ url(/fonts/vendor/bootstrap-icons/bootstrap-icons.woff?1295669cd4e305c97f2cfc16d
 
 /* Hiệu ứng fade + slide dropdown */
 .dropdown-menu {
-  display: none;
-  opacity: 0;
-  transform: translateY(-10px);
-  transition: opacity 0.3s ease, transform 0.3s ease;
-  pointer-events: none;
+    display: none;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    pointer-events: none;
 }
 
 .dropdown-menu.show {
-  display: block;
-  opacity: 1;
-  transform: translateY(0);
-  pointer-events: auto;
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
 }
 
 
@@ -2171,10 +2194,71 @@ url(/fonts/vendor/bootstrap-icons/bootstrap-icons.woff?1295669cd4e305c97f2cfc16d
     border-right: 0.3em solid transparent;
     border-bottom: 0;
     border-left: 0.3em solid transparent;
-    transition: transform 0.3s ease; /* Thêm transition cho mượt */
+    transition: transform 0.3s ease;
+    /* Thêm transition cho mượt */
 }
 
 .dropdown-toggle[aria-expanded="true"]::after {
     transform: rotate(180deg);
 }
-    
+
+.table-vinhgia {
+    width: 100%;
+    border-collapse: separate;
+    /* ✅ CHUYỂN ĐỔI Ở ĐÂY */
+    border-spacing: 0;
+    /* ✅ Đảm bảo không có khoảng */
+    font-size: 15px;
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: white;
+}
+
+
+.table-vinhgia thead {
+    background-color: #C06252;
+    color: white;
+}
+
+.table-vinhgia th,
+.table-vinhgia td {
+    padding: 12px 16px;
+
+    text-align: left;
+    vertical-align: middle;
+    white-space: nowrap;
+}
+
+.table-vinhgia tbody tr:nth-child(even) {
+    background-color: #fdf2ef;
+}
+
+.table-vinhgia tbody tr:hover {
+    background-color: #fdece7;
+    transition: background-color 0.2s ease;
+}
+
+.table-vinhgia td a.btn {
+    padding: 4px 8px;
+    font-size: 13px;
+}
+
+
+
+@keyframes mainFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-main {
+  animation: mainFadeIn 0.5s ease-out;
+}
+

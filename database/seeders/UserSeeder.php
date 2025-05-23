@@ -17,8 +17,9 @@ class UserSeeder extends Seeder
             'name' => 'Nguyễn Văn A',
             'email' => 'admin@example.com',
             'phone_number' => '0909123456',
-            'department_id' => null, // không thuộc phòng ban
-            'password' => Hash::make('password'), // nên hash password
+            'department_id' => null,
+            'password' => Hash::make('123456'),
+            'admin' => true, // ✅ Đánh dấu là admin
         ]);
 
         // Bạn có thể thêm nhiều user khác tại đây nếu muốn
