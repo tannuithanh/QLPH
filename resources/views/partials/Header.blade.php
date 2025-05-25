@@ -18,12 +18,12 @@
                 <!-- Menu chính -->
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" href="#">Trang chủ</a>
+                        <a class="nav-link {{ request()->routeIs('showDashboard') ? 'active' : '' }}" href="{{ route('showDashboard') }}">Trang chủ</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Giới thiệu</a>
+                        <a class="nav-link {{ request()->routeIs('showManagerSchedule') ? 'active' : '' }}" href="{{ route('showManagerSchedule') }}">Lịch họp</a>
                     </li>
-                    <li class="nav-item dropdown">
+                    {{-- <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="servicesDropdown" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false">
                             Dịch vụ
@@ -32,11 +32,7 @@
                             <li><a class="dropdown-item" href="#">Thiết kế</a></li>
                             <li><a class="dropdown-item" href="#">Lập trình</a></li>
                         </ul>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Liên hệ</a>
-                    </li>
+                    </li> --}}
                 </ul>
 
                 <!-- Profile bên phải (demo tạm) -->
@@ -73,14 +69,19 @@
                                 </a>
                             </li>
                             <li>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
+                                <a class="dropdown-item d-flex align-items-center" href="{{ route('showMeetingRoomManager') }}">
                                     <i class="bi bi-door-open me-2"></i> Quản lý phòng họp
                                 </a>
                             </li>
+
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
-
+                            <li>
+                                <a class="dropdown-item d-flex align-items-center change-pass" data-bs-toggle="modal" data-bs-target="#changePasswordModal" style="cursor: pointer">
+                                    <i class="bi bi-key me-2"></i> Đổi mật khẩu
+                                </a>
+                            </li>
                             <li>
                                 <a class="dropdown-item d-flex align-items-center" href="#"
                                     onclick="event.preventDefault(); document.getElementById('logout-form').submit();">

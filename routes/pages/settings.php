@@ -11,9 +11,11 @@ Route::Post('/edit_users', [SettingController::class, 'editUsers'])->middleware(
 
 
 
-
-
-
 Route::get('/department_manager', [SettingController::class, 'showDepartmentManager'])->middleware('auth')->name('showDepartmentManager');
 Route::Post('/add_department', [SettingController::class, 'addDepartment'])->middleware('auth')->name('addDepartment');
 Route::Post('/delelte_department', [SettingController::class, 'deleteDepartment'])->middleware('auth')->name('deleteDepartment');
+
+
+Route::get('/meeting_Room_manager', [SettingController::class, 'showMeetingRoomManager'])->middleware('auth')->name('showMeetingRoomManager');
+Route::Post('/add_meeting_room', [SettingController::class, 'addMeetingRoom'])->middleware('auth')->name('addMeetingRoom');
+Route::Post('/delete_meeting_room', [SettingController::class, 'DelteMeetingRoom'])->middleware('auth')->name('DelteMeetingRoom');

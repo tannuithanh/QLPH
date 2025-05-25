@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Pages;
 
 use App\Http\Controllers\Controller;
 use App\Models\Department;
+use App\Models\MeetingRoom;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -11,6 +12,7 @@ use Illuminate\Validation\ValidationException;
 
 class SettingController extends Controller
 {
+// NGƯỜI DÙNG
     public function showUserManager()
     {
         $users = User::with('department')->get();
@@ -101,23 +103,7 @@ class SettingController extends Controller
         ]);
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// PHÒNG BAN
     public function showDepartmentManager()
     {
         $departments = Department::all(); // Lấy toàn bộ phòng ban
@@ -151,4 +137,51 @@ class SettingController extends Controller
 
         return response()->json(['message' => 'Xóa thành công']);
     }
+// PHÒNG HỌP
+    public function showMeetingRoomManager()
+    {
+        $meetingRooms = MeetingRoom::with('creator')->get(); // eager load user tạo
+        return view('Pages.setting.meetingRoomManager', compact('meetingRooms'));
+    }
+
+    public function addMeetingRoom(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
+
+        $room = MeetingRoom::create([
+            'name' => $request->name,
+            'created_by' => auth()->id()
+        ]);
+
+        return response()->json([
+            'success' => true,
+            'data' => [
+                'id' => $room->id,
+                'name' => $room->name,
+                'creator' => auth()->user()->name,
+            ]
+        ]);
+    }
+
+    public function DelteMeetingRoom(Request $request)
+    {
+        $room = MeetingRoom::find($request->id);
+
+        if (!$room) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Phòng họp không tồn tại.'
+            ]);
+        }
+
+        $room->delete();
+
+        return response()->json([
+            'success' => true
+        ]);
+    }
+
+
 }

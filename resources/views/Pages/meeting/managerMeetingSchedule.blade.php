@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
-@section('title', 'Dashboard')
+@section('title', 'Quản lý lịch họp')
 
 @section('content')
     <div class="d-flex justify-content-between align-items-center mb-4">
         <div>
-            <h4 class="mb-1 page-title">Trang chủ</h4>
+            <h4 class="mb-1 page-title">Quản lý lịch họp</h4>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0 pt-1 breadcrumb-custom">
                     <li class="breadcrumb-item">
@@ -13,16 +13,30 @@
                             <i class="bi bi-house-door-fill me-1"></i> Trang chủ
                         </a>
                     </li>
+                    <li class="breadcrumb-item active text-dark" aria-current="page">Lịch họp</li>
                 </ol>
             </nav>
         </div>
+        <a class="btn btn-theme text-white px-4 shadow-sm" href="{{ route('showRegisterSchedule') }}">
+            + Đăng ký lịch họp
+        </a>
     </div>
 
     <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="title-vinhgia">Danh sách lịch họp hôm nay</h4>
+                    <div class="mb-3">
+                        <div class="input-group">
+                            <input type="date" class="form-control" id="fromDate" placeholder="Từ ngày">
+                            <span class="input-group-text">→</span>
+                            <input type="date" class="form-control" id="toDate" placeholder="Đến ngày">
+                            <button class="btn text-white" style="background-color: #C06252;" id="filterBtn">
+                                <i class="bi bi-search me-1"></i> Tìm kiếm
+                            </button>
+                        </div>
+                    </div>
+                    <h5 class="title-vinhgia">Danh sách lịch họp</h5>
                         {{-- Bảng nhân sự --}}
                         <div class="table-responsive">
                             <table class="table-vinhgia" id="userTable">
@@ -91,7 +105,9 @@
                                         <td style="text-align:center; vertical-align:middle">Phòng họp A</td>
                                         <td style="text-align:center; vertical-align:middle">2025-05-28</td>
                                         <td style="text-align:center; vertical-align:middle">08:30</td>
-                                        <td style="text-align:left; word-break: break-word; white-space: normal;">Họp kế hoạch chiến lược Q3 Họp kế hoạch chiến lược Q3 Họp kế hoạch chiến lược Q3 Họp kế hoạch chiến lược Q3 Họp kế hoạch chiến lược Q3</td>
+                                        <td style="text-align:left; word-break: break-word; white-space: normal;">Họp kế
+                                            hoạch chiến lược Q3 Họp kế hoạch chiến lược Q3 Họp kế hoạch chiến lược Q3 Họp kế
+                                            hoạch chiến lược Q3 Họp kế hoạch chiến lược Q3</td>
                                         <td style="text-align:center">Nguyễn Văn A</td>
                                         <td style="text-align:left">Trần B, Lê C</td>
                                         <td style="text-align:center">Máy chiếu, Micro</td>
@@ -111,7 +127,8 @@
                                         <td style="text-align:center; vertical-align:middle">Phòng họp B</td>
                                         <td style="text-align:center; vertical-align:middle">2025-05-29</td>
                                         <td style="text-align:center; vertical-align:middle">14:00</td>
-                                        <td style="text-align:left">Họp duyệt ngân sách phòng R&D và tân núi thành là một anh chàng điển traui</td>
+                                        <td style="text-align:left">Họp duyệt ngân sách phòng R&D và tân núi thành là một
+                                            anh chàng điển traui</td>
                                         <td style="text-align:center">Phạm Thị B</td>
                                         <td style="text-align:left">Ngô D, Lý E</td>
                                         <td style="text-align:center">TV, Whiteboard</td>
@@ -126,11 +143,13 @@
                                         <td style="text-align:center">Admin Tạo</td>
                                         <td style="text-align:center">2025-05-25 10:15</td>
                                     </tr>
-  <tr>
+                                    <tr>
                                         <td style="text-align:center; vertical-align:middle">Phòng họp A</td>
                                         <td style="text-align:center; vertical-align:middle">2025-05-28</td>
                                         <td style="text-align:center; vertical-align:middle">08:30</td>
-                                        <td style="text-align:left; word-break: break-word; white-space: normal;">Họp kế hoạch chiến lược Q3 Họp kế hoạch chiến lược Q3 Họp kế hoạch chiến lược Q3 Họp kế hoạch chiến lược Q3 Họp kế hoạch chiến lược Q3</td>
+                                        <td style="text-align:left; word-break: break-word; white-space: normal;">Họp kế
+                                            hoạch chiến lược Q3 Họp kế hoạch chiến lược Q3 Họp kế hoạch chiến lược Q3 Họp kế
+                                            hoạch chiến lược Q3 Họp kế hoạch chiến lược Q3</td>
                                         <td style="text-align:center">Nguyễn Văn A</td>
                                         <td style="text-align:left">Trần B, Lê C</td>
                                         <td style="text-align:center">Máy chiếu, Micro</td>
@@ -150,7 +169,8 @@
                                         <td style="text-align:center; vertical-align:middle">Phòng họp B</td>
                                         <td style="text-align:center; vertical-align:middle">2025-05-29</td>
                                         <td style="text-align:center; vertical-align:middle">14:00</td>
-                                        <td style="text-align:left">Họp duyệt ngân sách phòng R&D và tân núi thành là một anh chàng điển traui</td>
+                                        <td style="text-align:left">Họp duyệt ngân sách phòng R&D và tân núi thành là một
+                                            anh chàng điển traui</td>
                                         <td style="text-align:center">Phạm Thị B</td>
                                         <td style="text-align:left">Ngô D, Lý E</td>
                                         <td style="text-align:center">TV, Whiteboard</td>
@@ -164,11 +184,14 @@
                                         </td>
                                         <td style="text-align:center">Admin Tạo</td>
                                         <td style="text-align:center">2025-05-25 10:15</td>
-                                    </tr>  <tr>
+                                    </tr>
+                                    <tr>
                                         <td style="text-align:center; vertical-align:middle">Phòng họp A</td>
                                         <td style="text-align:center; vertical-align:middle">2025-05-28</td>
                                         <td style="text-align:center; vertical-align:middle">08:30</td>
-                                        <td style="text-align:left; word-break: break-word; white-space: normal;">Họp kế hoạch chiến lược Q3 Họp kế hoạch chiến lược Q3 Họp kế hoạch chiến lược Q3 Họp kế hoạch chiến lược Q3 Họp kế hoạch chiến lược Q3</td>
+                                        <td style="text-align:left; word-break: break-word; white-space: normal;">Họp kế
+                                            hoạch chiến lược Q3 Họp kế hoạch chiến lược Q3 Họp kế hoạch chiến lược Q3 Họp kế
+                                            hoạch chiến lược Q3 Họp kế hoạch chiến lược Q3</td>
                                         <td style="text-align:center">Nguyễn Văn A</td>
                                         <td style="text-align:left">Trần B, Lê C</td>
                                         <td style="text-align:center">Máy chiếu, Micro</td>
@@ -188,7 +211,8 @@
                                         <td style="text-align:center; vertical-align:middle">Phòng họp B</td>
                                         <td style="text-align:center; vertical-align:middle">2025-05-29</td>
                                         <td style="text-align:center; vertical-align:middle">14:00</td>
-                                        <td style="text-align:left">Họp duyệt ngân sách phòng R&D và tân núi thành là một anh chàng điển traui</td>
+                                        <td style="text-align:left">Họp duyệt ngân sách phòng R&D và tân núi thành là một
+                                            anh chàng điển traui</td>
                                         <td style="text-align:center">Phạm Thị B</td>
                                         <td style="text-align:left">Ngô D, Lý E</td>
                                         <td style="text-align:center">TV, Whiteboard</td>
