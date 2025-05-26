@@ -29,7 +29,7 @@
                         <input type="text" class="form-control" id="userSearchInput"
                             placeholder="Tìm kiếm nhân sự theo tên, email..." />
                     </div>
-
+                    <h5 class="title-vinhgia">Danh sách người dùng</h5>
                     {{-- Bảng nhân sự --}}
                     <div class="table-responsive">
                         <table class="table-vinhgia" id="userTable">

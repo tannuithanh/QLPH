@@ -19,3 +19,6 @@ Route::Post('/delelte_department', [SettingController::class, 'deleteDepartment'
 Route::get('/meeting_Room_manager', [SettingController::class, 'showMeetingRoomManager'])->middleware('auth')->name('showMeetingRoomManager');
 Route::Post('/add_meeting_room', [SettingController::class, 'addMeetingRoom'])->middleware('auth')->name('addMeetingRoom');
 Route::Post('/delete_meeting_room', [SettingController::class, 'DelteMeetingRoom'])->middleware('auth')->name('DelteMeetingRoom');
+
+
+Route::get('/role_manager', [SettingController::class, 'showRoleManager'])->middleware('auth')->name('showRoleManager');

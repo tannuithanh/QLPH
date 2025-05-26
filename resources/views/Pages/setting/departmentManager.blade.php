@@ -26,7 +26,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <h5 >Danh sách phòng ban</h4>
+                     <h5 class="title-vinhgia">Danh sách phòng ban</h5>
                     {{-- Bảng nhân sự --}}
                     <div class="table-responsive-sm">
                         <table class="table-vinhgia" id="userTable">

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Pages;
 use App\Http\Controllers\Controller;
 use App\Models\Department;
 use App\Models\MeetingRoom;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -181,6 +182,16 @@ class SettingController extends Controller
         return response()->json([
             'success' => true
         ]);
+    }
+
+// PHÂN QUYỀN
+    public function showRoleManager()
+    {
+        $roles = Role::withCount('users')->get(); // Nếu muốn đếm số user, dùng withCount
+        // Hoặc nếu muốn load danh sách user:
+        // $roles = Role::with('users')->get();
+
+        return view('pages.setting.roleManager', compact('roles'));
     }
 
 

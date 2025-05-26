@@ -26,6 +26,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
+                     <h5 class="title-vinhgia">Danh sách phòng họp</h5>
                     <div class="table-responsive">
                         <table class="table-vinhgia">
                             <thead>

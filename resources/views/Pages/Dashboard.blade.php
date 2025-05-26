@@ -25,9 +25,9 @@
                     <h5 class="title-vinhgia">Danh sách lịch họp hôm nay</h4>
                         {{-- Bảng nhân sự --}}
                         <div class="table-responsive">
-                            <table class="table-vinhgia" id="userTable">
-                                <thead class="thead-light" style="font-size: 13px">
-                                    <tr style="border: 1px solid #f3f3f3">
+                            <table class="table table-bordered" id="userTable">
+                                <thead>
+                                    <tr >
                                         <th style="width:150px;text-align:center; vertical-align:middle" rowspan="2">
                                             Phòng họp
                                         </th>
@@ -86,7 +86,7 @@
                                         </th>
                                     </tr>
                                 </thead>
-                                <tbody id="data" style="font-size: 12px">
+                                <tbody id="data" >
                                     <tr>
                                         <td style="text-align:center; vertical-align:middle">Phòng họp A</td>
                                         <td style="text-align:center; vertical-align:middle">2025-05-28</td>
@@ -126,7 +126,7 @@
                                         <td style="text-align:center">Admin Tạo</td>
                                         <td style="text-align:center">2025-05-25 10:15</td>
                                     </tr>
-  <tr>
+                                    <tr>
                                         <td style="text-align:center; vertical-align:middle">Phòng họp A</td>
                                         <td style="text-align:center; vertical-align:middle">2025-05-28</td>
                                         <td style="text-align:center; vertical-align:middle">08:30</td>
@@ -168,7 +168,7 @@
                                         <td style="text-align:center; vertical-align:middle">Phòng họp A</td>
                                         <td style="text-align:center; vertical-align:middle">2025-05-28</td>
                                         <td style="text-align:center; vertical-align:middle">08:30</td>
-                                        <td style="text-align:left; word-break: break-word; white-space: normal;">Họp kế hoạch chiến lược Q3 Họp kế hoạch chiến lược Q3 Họp kế hoạch chiến lược Q3 Họp kế hoạch chiến lược Q3 Họp kế hoạch chiến lược Q3</td>
+                                        <td style="text-align:left;">Họp kế hoạch chiến lược Q3 Họp kế hoạch chiến lược Q3 Họp kế hoạch chiến lược Q3 Họp kế hoạch chiến lược Q3 Họp kế hoạch chiến lược Q3</td>
                                         <td style="text-align:center">Nguyễn Văn A</td>
                                         <td style="text-align:left">Trần B, Lê C</td>
                                         <td style="text-align:center">Máy chiếu, Micro</td>

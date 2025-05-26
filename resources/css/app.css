@@ -1,6 +1,12 @@
 @import '~bootstrap/dist/css/bootstrap.min.css';
 @import "~bootstrap-icons/font/bootstrap-icons.css";
 
+table.table-bordered th {
+    background-color: #C06252;
+    color: white;
+}
+
+
 main.fade-in {
     position: relative;
     z-index: 1051;
