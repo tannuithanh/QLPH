@@ -2,7 +2,7 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm fixed-top" style="z-index: 1050;">
         <div class="container-fluid">
             <!-- Logo bên trái -->
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" href="{{route('showDashboard')}}">
                 <img src="{{ asset('images/login.png') }}" alt="Logo" width="70" height="70"
                     class="d-inline-block align-text-top">
             </a>
@@ -50,33 +50,35 @@
 
 
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
-                            <li>
-                                <a class="dropdown-item d-flex align-items-center" href="{{ route('showRoleManager') }}">
-                                    <i class="bi bi-shield-lock me-2"></i> <!-- icon phân quyền -->
-                                    Quản lý phân quyền
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item d-flex align-items-center" href="{{ route('showUserManager') }}">
-                                    <i class="bi bi-people me-2"></i> <!-- icon tài khoản -->
-                                    Quản lý tài khoản
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item d-flex align-items-center" href="{{ route('showDepartmentManager') }}">
-                                    <i class="bi bi-building me-2"></i> <!-- icon phòng ban -->
-                                    Quản lý phòng ban
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item d-flex align-items-center" href="{{ route('showMeetingRoomManager') }}">
-                                    <i class="bi bi-door-open me-2"></i> Quản lý phòng họp
-                                </a>
-                            </li>
+                            @if ($user && $user->hasRole('admin'))
+                                <li>
+                                    <a class="dropdown-item d-flex align-items-center" href="{{ route('showRoleManager') }}">
+                                        <i class="bi bi-shield-lock me-2"></i> <!-- icon phân quyền -->
+                                        Quản lý phân quyền
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item d-flex align-items-center" href="{{ route('showUserManager') }}">
+                                        <i class="bi bi-people me-2"></i> <!-- icon tài khoản -->
+                                        Quản lý tài khoản
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item d-flex align-items-center" href="{{ route('showDepartmentManager') }}">
+                                        <i class="bi bi-building me-2"></i> <!-- icon phòng ban -->
+                                        Quản lý phòng ban
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item d-flex align-items-center" href="{{ route('showMeetingRoomManager') }}">
+                                        <i class="bi bi-door-open me-2"></i> Quản lý phòng họp
+                                    </a>
+                                </li>
 
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                            @endif
                             <li>
                                 <a class="dropdown-item d-flex align-items-center change-pass" data-bs-toggle="modal" data-bs-target="#changePasswordModal" style="cursor: pointer">
                                     <i class="bi bi-key me-2"></i> Đổi mật khẩu

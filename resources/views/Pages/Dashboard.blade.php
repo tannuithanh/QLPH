@@ -70,140 +70,99 @@
                                         <th style="width:250px;text-align:center; vertical-align:middle" rowspan="2">
                                             Tệp tin đính kèm
                                         </th>
+                                        <th style="width:250px;text-align:center; vertical-align:middle" rowspan="2">
+                                            Nơi ghi nhận kết quả
+                                        </th>
                                         <th style="width:150px;text-align:center; vertical-align:middle" rowspan="2">
                                             Người tạo
                                         </th>
                                         <th style="width:100px;text-align:center; vertical-align:middle" rowspan="2">
                                             Thời gian tạo
                                         </th>
+                                        
                                     </tr>
                                     <tr>
                                         <th style="width:100px;text-align:center; vertical-align:middle">
                                             Ngày
                                         </th>
-                                        <th style="width:100px;text-align:center; vertical-align:middle">
+                                        <th style="width:200px;text-align:center; vertical-align:middle">
                                             Giờ
                                         </th>
                                     </tr>
                                 </thead>
-                                <tbody id="data" >
+                                                            <tbody id="data" >
+                                @foreach ($histories as $item)
                                     <tr>
-                                        <td style="text-align:center; vertical-align:middle">Phòng họp A</td>
-                                        <td style="text-align:center; vertical-align:middle">2025-05-28</td>
-                                        <td style="text-align:center; vertical-align:middle">08:30</td>
-                                        <td style="text-align:left; word-break: break-word; white-space: normal;">Họp kế hoạch chiến lược Q3 Họp kế hoạch chiến lược Q3 Họp kế hoạch chiến lược Q3 Họp kế hoạch chiến lược Q3 Họp kế hoạch chiến lược Q3</td>
-                                        <td style="text-align:center">Nguyễn Văn A</td>
-                                        <td style="text-align:left">Trần B, Lê C</td>
-                                        <td style="text-align:center">Máy chiếu, Micro</td>
-                                        <td style="text-align:left">Phòng Kinh doanh</td>
-                                        <td style="text-align:left">Cố vấn thị trường</td>
-                                        <td style="text-align:center">Ông D - CEO</td>
-                                        <td style="text-align:center">Nguyễn Thư Ký</td>
-                                        <td style="text-align:left">Mang đủ tài liệu phân tích</td>
-                                        <td style="text-align:center">
-                                            <a href="#">Chiến_lược_Q3.pdf</a>
-                                        </td>
-                                        <td style="text-align:center">Trần Văn Admin</td>
-                                        <td style="text-align:center">2025-05-25 09:42</td>
-                                    </tr>
+                                        <td style="text-align:center">{{ $item->meetingRoom->name ?? '-' }}</td>
 
-                                    <tr>
-                                        <td style="text-align:center; vertical-align:middle">Phòng họp B</td>
-                                        <td style="text-align:center; vertical-align:middle">2025-05-29</td>
-                                        <td style="text-align:center; vertical-align:middle">14:00</td>
-                                        <td style="text-align:left">Họp duyệt ngân sách phòng R&D và tân núi thành là một anh chàng điển traui</td>
-                                        <td style="text-align:center">Phạm Thị B</td>
-                                        <td style="text-align:left">Ngô D, Lý E</td>
-                                        <td style="text-align:center">TV, Whiteboard</td>
-                                        <td style="text-align:left">R&D + Kế toán</td>
-                                        <td style="text-align:left">Tư vấn sản phẩm</td>
-                                        <td style="text-align:center">Nguyễn GĐ Tài chính</td>
-                                        <td style="text-align:center">Lê Văn Thư</td>
-                                        <td style="text-align:left">Mang báo cáo tài chính in sẵn</td>
-                                        <td style="text-align:center">
-                                            <a href="#">duyet_ngansach.xlsx</a>
-                                        </td>
-                                        <td style="text-align:center">Admin Tạo</td>
-                                        <td style="text-align:center">2025-05-25 10:15</td>
-                                    </tr>
-                                    <tr>
-                                        <td style="text-align:center; vertical-align:middle">Phòng họp A</td>
-                                        <td style="text-align:center; vertical-align:middle">2025-05-28</td>
-                                        <td style="text-align:center; vertical-align:middle">08:30</td>
-                                        <td style="text-align:left; word-break: break-word; white-space: normal;">Họp kế hoạch chiến lược Q3 Họp kế hoạch chiến lược Q3 Họp kế hoạch chiến lược Q3 Họp kế hoạch chiến lược Q3 Họp kế hoạch chiến lược Q3</td>
-                                        <td style="text-align:center">Nguyễn Văn A</td>
-                                        <td style="text-align:left">Trần B, Lê C</td>
-                                        <td style="text-align:center">Máy chiếu, Micro</td>
-                                        <td style="text-align:left">Phòng Kinh doanh</td>
-                                        <td style="text-align:left">Cố vấn thị trường</td>
-                                        <td style="text-align:center">Ông D - CEO</td>
-                                        <td style="text-align:center">Nguyễn Thư Ký</td>
-                                        <td style="text-align:left">Mang đủ tài liệu phân tích</td>
-                                        <td style="text-align:center">
-                                            <a href="#">Chiến_lược_Q3.pdf</a>
-                                        </td>
-                                        <td style="text-align:center">Trần Văn Admin</td>
-                                        <td style="text-align:center">2025-05-25 09:42</td>
-                                    </tr>
+                                        {{-- Ngày --}}
+                                        <td style="text-align:center">{{ \Carbon\Carbon::parse($item->date)->format('d/m/Y') }}</td>
 
-                                    <tr>
-                                        <td style="text-align:center; vertical-align:middle">Phòng họp B</td>
-                                        <td style="text-align:center; vertical-align:middle">2025-05-29</td>
-                                        <td style="text-align:center; vertical-align:middle">14:00</td>
-                                        <td style="text-align:left">Họp duyệt ngân sách phòng R&D và tân núi thành là một anh chàng điển traui</td>
-                                        <td style="text-align:center">Phạm Thị B</td>
-                                        <td style="text-align:left">Ngô D, Lý E</td>
-                                        <td style="text-align:center">TV, Whiteboard</td>
-                                        <td style="text-align:left">R&D + Kế toán</td>
-                                        <td style="text-align:left">Tư vấn sản phẩm</td>
-                                        <td style="text-align:center">Nguyễn GĐ Tài chính</td>
-                                        <td style="text-align:center">Lê Văn Thư</td>
-                                        <td style="text-align:left">Mang báo cáo tài chính in sẵn</td>
+                                        {{-- Giờ --}}
                                         <td style="text-align:center">
-                                            <a href="#">duyet_ngansach.xlsx</a>
+                                            {{ \Carbon\Carbon::parse($item->start_time)->format('H:i') }} → {{ \Carbon\Carbon::parse($item->end_time)->format('H:i') }}
                                         </td>
-                                        <td style="text-align:center">Admin Tạo</td>
-                                        <td style="text-align:center">2025-05-25 10:15</td>
-                                    </tr>  <tr>
-                                        <td style="text-align:center; vertical-align:middle">Phòng họp A</td>
-                                        <td style="text-align:center; vertical-align:middle">2025-05-28</td>
-                                        <td style="text-align:center; vertical-align:middle">08:30</td>
-                                        <td style="text-align:left;">Họp kế hoạch chiến lược Q3 Họp kế hoạch chiến lược Q3 Họp kế hoạch chiến lược Q3 Họp kế hoạch chiến lược Q3 Họp kế hoạch chiến lược Q3</td>
-                                        <td style="text-align:center">Nguyễn Văn A</td>
-                                        <td style="text-align:left">Trần B, Lê C</td>
-                                        <td style="text-align:center">Máy chiếu, Micro</td>
-                                        <td style="text-align:left">Phòng Kinh doanh</td>
-                                        <td style="text-align:left">Cố vấn thị trường</td>
-                                        <td style="text-align:center">Ông D - CEO</td>
-                                        <td style="text-align:center">Nguyễn Thư Ký</td>
-                                        <td style="text-align:left">Mang đủ tài liệu phân tích</td>
-                                        <td style="text-align:center">
-                                            <a href="#">Chiến_lược_Q3.pdf</a>
-                                        </td>
-                                        <td style="text-align:center">Trần Văn Admin</td>
-                                        <td style="text-align:center">2025-05-25 09:42</td>
-                                    </tr>
 
-                                    <tr>
-                                        <td style="text-align:center; vertical-align:middle">Phòng họp B</td>
-                                        <td style="text-align:center; vertical-align:middle">2025-05-29</td>
-                                        <td style="text-align:center; vertical-align:middle">14:00</td>
-                                        <td style="text-align:left">Họp duyệt ngân sách phòng R&D và tân núi thành là một anh chàng điển traui</td>
-                                        <td style="text-align:center">Phạm Thị B</td>
-                                        <td style="text-align:left">Ngô D, Lý E</td>
-                                        <td style="text-align:center">TV, Whiteboard</td>
-                                        <td style="text-align:left">R&D + Kế toán</td>
-                                        <td style="text-align:left">Tư vấn sản phẩm</td>
-                                        <td style="text-align:center">Nguyễn GĐ Tài chính</td>
-                                        <td style="text-align:center">Lê Văn Thư</td>
-                                        <td style="text-align:left">Mang báo cáo tài chính in sẵn</td>
-                                        <td style="text-align:center">
-                                            <a href="#">duyet_ngansach.xlsx</a>
+                                        <td>{{ $item->title }}</td>
+                                        <td style="text-align:center">{{ $item->moderator }}</td>
+
+                                        {{-- Người liên quan --}}
+                                        <td>
+                                            @foreach ($item->relatedUsers() as $userData)
+                                                <div>{{ $userData->name }}</div>
+                                            @endforeach
                                         </td>
-                                        <td style="text-align:center">Admin Tạo</td>
-                                        <td style="text-align:center">2025-05-25 10:15</td>
+
+                                        <td>{{ $item->devices }}</td>
+
+                                        {{-- Thành phần chuyên môn --}}
+                                        <td>
+                                            @foreach ($item->specialistUsers() as $userData)
+                                                <div>{{ $userData->name }}</div>
+                                            @endforeach
+                                        </td>
+
+                                        {{-- Thành phần tư vấn --}}
+                                        <td>
+                                             @foreach ($item->advisorUsers() as $userData)
+                                                <div>{{ $userData->name }}</div>
+                                            @endforeach
+                                        </td>
+
+                                        {{-- Người quyết định --}}
+                                        <td style="text-align:center">{{ $item->decisionMaker->name ?? '-' }}</td>
+
+                                        {{-- Thư ký --}}
+                                        <td>
+                                            @foreach ($item->secretaryUsers() as $userData)
+                                                <div>{{ $userData->name }}</div>
+                                            @endforeach
+                                        </td>
+
+                                        <td>{{ $item->note }}</td>
+
+                                        {{-- Tệp tin đính kèm --}}
+                                        <td>
+                                            @if ($item->attachment_path)
+                                                <a hresult_record_locationf="{{ asset($item->attachment_path) }}" target="_blank">Tải xuống</a>
+                                            @else
+                                                Không có
+                                            @endif
+                                        </td>
+                                        <td>{{ $item->result_record_location }}</td>
+                                        {{-- Người tạo --}}
+                                        <td style="text-align:center">
+                                            {{ \App\Models\User::find($item->created_by)?->name ?? '-' }}
+                                        </td>
+
+                                        {{-- Thời gian tạo --}}
+                                        <td style="text-align:center">
+                                            {{ $item->created_at->format('d/m/Y H:i') }}
+                                        </td>
                                     </tr>
-                                </tbody>
+                                @endforeach
+                            </tbody>
+
                             </table>
                         </div>
                 </div>

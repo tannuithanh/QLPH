@@ -8,6 +8,7 @@ use App\Models\MeetingRoom;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class ScheduleController extends Controller
 {
@@ -151,12 +152,19 @@ class ScheduleController extends Controller
 
     public function showEditSchedule($id)
     {
+        $user = Auth::user();
         $meetingRooms = MeetingRoom::all();
         $users = User::all();
-        $history = MeetingHistory::findOrFail($id); // ← lấy lịch họp cần sửa
+        $history = MeetingHistory::findOrFail($id);
+
+        // ❗ Kiểm tra nếu người dùng hiện tại KHÔNG phải là người tạo
+        if ($history->created_by !== $user->id && $user->admin !== 1) {
+            // Có thể redirect về trang danh sách hoặc quay lại
+            return redirect()->back()->with('error', 'Bạn không có quyền chỉnh sửa lịch họp này.');
+        }
+
         return view('pages.meeting.editMeetingSchedule', compact('meetingRooms', 'users', 'history'));
     }
-
     public function handleEditSchedule(Request $request)
     {
         $request->validate([

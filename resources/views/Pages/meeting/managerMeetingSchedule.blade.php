@@ -84,13 +84,16 @@
                                     <th style="width:250px;text-align:center; vertical-align:middle" rowspan="2">
                                         Tệp tin đính kèm
                                     </th>
+                                    <th style="width:250px;text-align:center; vertical-align:middle" rowspan="2">
+                                        Nơi ghi nhận kết quả
+                                    </th>
                                     <th style="width:150px;text-align:center; vertical-align:middle" rowspan="2">
                                         Người tạo
                                     </th>
                                     <th style="width:100px;text-align:center; vertical-align:middle" rowspan="2">
                                         Thời gian tạo
                                     </th>
-                                     <th style="width:100px;text-align:center; vertical-align:middle" rowspan="2">
+                                    <th style="width:100px;text-align:center; vertical-align:middle" rowspan="2">
                                         Thao tác
                                     </th>
                                 </tr>
@@ -98,22 +101,24 @@
                                     <th style="width:100px;text-align:center; vertical-align:middle">
                                         Ngày
                                     </th>
-                                    <th style="width:100px;text-align:center; vertical-align:middle">
+                                    <th style="width:20`0px;text-align:center; vertical-align:middle">
                                         Giờ
                                     </th>
                                 </tr>
                             </thead>
-                            <tbody id="data" >
+                            <tbody id="data">
                                 @foreach ($histories as $item)
                                     <tr>
                                         <td style="text-align:center">{{ $item->meetingRoom->name ?? '-' }}</td>
 
                                         {{-- Ngày --}}
-                                        <td style="text-align:center">{{ \Carbon\Carbon::parse($item->date)->format('d/m/Y') }}</td>
+                                        <td style="text-align:center">
+                                            {{ \Carbon\Carbon::parse($item->date)->format('d/m/Y') }}</td>
 
                                         {{-- Giờ --}}
                                         <td style="text-align:center">
-                                            {{ \Carbon\Carbon::parse($item->start_time)->format('H:i') }} → {{ \Carbon\Carbon::parse($item->end_time)->format('H:i') }}
+                                            {{ \Carbon\Carbon::parse($item->start_time)->format('H:i') }} →
+                                            {{ \Carbon\Carbon::parse($item->end_time)->format('H:i') }}
                                         </td>
 
                                         <td>{{ $item->title }}</td>
@@ -121,8 +126,8 @@
 
                                         {{-- Người liên quan --}}
                                         <td>
-                                            @foreach ($item->relatedUsers() as $user)
-                                                <div>{{ $user->name }}</div>
+                                            @foreach ($item->relatedUsers() as $userData)
+                                                <div>{{ $userData->name }}</div>
                                             @endforeach
                                         </td>
 
@@ -130,15 +135,15 @@
 
                                         {{-- Thành phần chuyên môn --}}
                                         <td>
-                                            @foreach ($item->specialistUsers() as $user)
-                                                <div>{{ $user->name }}</div>
+                                            @foreach ($item->specialistUsers() as $userData)
+                                                <div>{{ $userData->name }}</div>
                                             @endforeach
                                         </td>
 
                                         {{-- Thành phần tư vấn --}}
                                         <td>
-                                             @foreach ($item->advisorUsers() as $user)
-                                                <div>{{ $user->name }}</div>
+                                            @foreach ($item->advisorUsers() as $userData)
+                                                <div>{{ $userData->name }}</div>
                                             @endforeach
                                         </td>
 
@@ -147,8 +152,8 @@
 
                                         {{-- Thư ký --}}
                                         <td>
-                                            @foreach ($item->secretaryUsers() as $user)
-                                                <div>{{ $user->name }}</div>
+                                            @foreach ($item->secretaryUsers() as $userData)
+                                                <div>{{ $userData->name }}</div>
                                             @endforeach
                                         </td>
 
@@ -162,7 +167,7 @@
                                                 Không có
                                             @endif
                                         </td>
-
+                                        <td>{{ $item->result_record_location }}</td>
                                         {{-- Người tạo --}}
                                         <td style="text-align:center">
                                             {{ \App\Models\User::find($item->created_by)?->name ?? '-' }}
@@ -174,16 +179,20 @@
                                         </td>
                                         {{-- Thao tác --}}
                                         <td style="text-align: center">
-                                            {{-- Nút sửa --}}
-                                            <a href="{{ route('showEditSchedule', $item->id) }}" class="btn btn-sm btn-warning me-1">
-                                                <i class="bi bi-pencil-square"></i>
-                                            </a>
-                                            {{-- Nút xóa (gọi JS) --}}
-                                            <button type="button"
-                                                class="btn btn-sm btn-danger btn-delete-schedule mt-1"
-                                                data-id="{{ $item->id }}">
-                                                <i class="bi bi-trash"></i>
-                                            </button>
+                                            @if ($item->created_by === $user->id || $user->admin == 1)
+                                                <a href="{{ route('showEditSchedule', $item->id) }}"
+                                                    class="btn btn-sm btn-warning me-1">
+                                                    <i class="bi bi-pencil-square"></i>
+                                                </a>
+                                            @endif
+
+                                            @if ($user->admin == 1)
+                                                <button type="button"
+                                                    class="btn btn-sm btn-danger btn-delete-schedule mt-1"
+                                                    data-id="{{ $item->id }}">
+                                                    <i class="bi bi-trash"></i>
+                                                </button>
+                                            @endif
                                         </td>
                                     </tr>
                                 @endforeach

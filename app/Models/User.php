@@ -29,4 +29,16 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Role::class);
     }
+    public function hasRole($name)
+    {
+        if (!is_array($this->roles)) return false;
+
+        foreach ($this->roles as $role) {
+            if (isset($role['name']) && $role['name'] === $name) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }
