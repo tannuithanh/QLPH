@@ -51,11 +51,11 @@
                             {{-- Thời gian bắt đầu / kết thúc --}}
                             <div class="col-md-3">
                                 <label class="label-vinhgia">Thời gian bắt đầu</label>
-                                <input type="datetime-local" class="form-control" name="start_datetime" required>
+                                <input type="datetime-local" class="form-control" name="start_datetime" id="start_datetime" required>
                             </div>
                             <div class="col-md-3">
                                 <label class="label-vinhgia">Thời gian kết thúc</label>
-                                <input type="datetime-local" class="form-control" name="end_datetime" required>
+                                <input type="datetime-local" class="form-control" name="end_datetime" id="end_datetime" required>
                             </div>
 
 

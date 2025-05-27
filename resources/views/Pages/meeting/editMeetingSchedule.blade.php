@@ -57,12 +57,12 @@
                         {{-- Thời gian --}}
                         <div class="col-md-3">
                             <label class="label-vinhgia">Thời gian bắt đầu</label>
-                            <input type="datetime-local" class="form-control" name="start_datetime"
+                            <input type="datetime-local" class="form-control" name="start_datetime" id="start_datetime"
                                 value="{{ $history->date . 'T' . $history->start_time }}">
                         </div>
                         <div class="col-md-3">
                             <label class="label-vinhgia">Thời gian kết thúc</label>
-                            <input type="datetime-local" class="form-control" name="end_datetime"
+                            <input type="datetime-local" class="form-control" name="end_datetime" id="end_datetime"
                                 value="{{ $history->date . 'T' . $history->end_time }}">
                         </div>
 

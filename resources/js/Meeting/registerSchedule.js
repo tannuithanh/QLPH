@@ -3,7 +3,23 @@ import toastr from 'toastr';
 import 'toastr/build/toastr.min.css';
 import 'select2/dist/css/select2.min.css';
 import 'select2';
+import flatpickr from "flatpickr";
+import "flatpickr/dist/flatpickr.min.css";
 
+
+document.addEventListener('DOMContentLoaded', function () {
+    flatpickr("#start_datetime", {
+        enableTime: true,
+        time_24hr: true,
+        dateFormat: "Y-m-d H:i"
+    });
+
+    flatpickr("#end_datetime", {
+        enableTime: true,
+        time_24hr: true,
+        dateFormat: "Y-m-d H:i"
+    });
+});
 $(document).ready(function () {
     // Khởi tạo Select2
     const selectNames = ['related_people[]', 'specialists[]', 'advisors[]', 'secretaries[]'];
