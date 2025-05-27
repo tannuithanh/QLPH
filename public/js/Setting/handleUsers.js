@@ -16366,7 +16366,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var phone = document.getElementById('userPhone').value.trim();
     var department = document.getElementById('userDepartment').value;
     var isAdmin = document.getElementById('isAdminCheckbox').checked;
-    if (!name || !email || !phone || !department) {
+    if (!name || !email || !department) {
       toastr__WEBPACK_IMPORTED_MODULE_0___default().warning('Vui lòng điền đầy đủ thông tin.');
       return;
     }

@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const department = document.getElementById('userDepartment').value;
         const isAdmin = document.getElementById('isAdminCheckbox').checked;
 
-        if (!name || !email || !phone || !department) {
+        if (!name || !email || !department) {
             toastr.warning('Vui lòng điền đầy đủ thông tin.');
             return;
         }
