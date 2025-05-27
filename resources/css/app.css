@@ -210,3 +210,20 @@ body {
     font-weight: 600;
     letter-spacing: -0.2px;
 }
+
+@media (max-width: 768px) {
+    .navbar {
+        background-color: #C06252 !important;
+    }
+
+    .navbar .nav-link,
+    .navbar .dropdown-toggle,
+    .navbar .dropdown-menu a {
+        color: #fff !important;
+    }
+
+    .navbar .dropdown-menu {
+        background-color: #C06252 !important;
+        border: none;
+    }
+}

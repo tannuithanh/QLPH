@@ -52,3 +52,20 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
+document.addEventListener('DOMContentLoaded', function () {
+    // Chỉ auto-show khi là mobile (≤768px)
+    if (window.innerWidth <= 768) {
+        const trigger = document.getElementById('profileDropdown');
+        const menu = trigger?.nextElementSibling;
+
+        if (trigger && menu && menu.classList.contains('dropdown-menu')) {
+            // Thêm class "show" vào cả <a> và <ul>
+            trigger.classList.add('show');
+            trigger.setAttribute('aria-expanded', 'true');
+
+            menu.classList.add('show');
+            menu.classList.add('dropdown-menu-end'); // đảm bảo giữ layout cũ
+            menu.setAttribute('data-bs-popper', 'static');
+        }
+    }
+});

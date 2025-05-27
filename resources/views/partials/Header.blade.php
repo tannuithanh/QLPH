@@ -3,8 +3,14 @@
         <div class="container-fluid">
             <!-- Logo bên trái -->
             <a class="navbar-brand" href="{{route('showDashboard')}}">
-                <img src="{{ asset('images/login.png') }}" alt="Logo" width="70" height="70"
-                    class="d-inline-block align-text-top">
+                    {{-- Desktop: hiển thị logo --}}
+                    <img src="{{ asset('images/login.png') }}" alt="Logo" width="70" height="70"
+                        class="d-none d-lg-inline-block align-text-top">
+
+                    {{-- Mobile: hiển thị chữ --}}
+                    <span class="d-inline-block d-lg-none fw-bold text-white" style="font-size: 1.2rem">
+                        Quản lý lịch họp
+                    </span>
             </a>
 
             <!-- Nút toggle trên mobile -->
