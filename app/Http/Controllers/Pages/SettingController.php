@@ -27,7 +27,6 @@ class SettingController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
-            'phone' => 'required|string|max:20',
             'department_id' => 'required|exists:departments,id',
             'is_admin' => 'nullable|boolean'
         ]);
