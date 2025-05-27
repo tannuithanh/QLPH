@@ -22,14 +22,14 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         View::composer('*', function ($view) {
-            $userSession = Auth::user();
+            $user = Auth::user();
 
-            if ($userSession) {
+            if ($user) {
                 // Luôn eager load roles để có sẵn danh sách
-                $userSession->load('roles');
+                $user->load('roles');
             }
             // dd($user->id);
-            $view->with('user', $userSession);
+            $view->with('user', $user);
         });
     }
 }

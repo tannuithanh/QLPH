@@ -14,9 +14,9 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         User::create([
-            'name' => 'Nguyễn Văn A',
-            'email' => 'admin@example.com',
-            'phone_number' => '0909123456',
+            'name' => 'Administrator',
+            'email' => 'meeting@vinhgiapottery.com',
+            'phone_number' => '0378644279',
             'department_id' => null,
             'password' => Hash::make('123456'),
             'admin' => true, // ✅ Đánh dấu là admin
