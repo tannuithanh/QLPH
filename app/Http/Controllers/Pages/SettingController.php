@@ -28,7 +28,8 @@ class SettingController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
             'department_id' => 'required|exists:departments,id',
-            'is_admin' => 'nullable|boolean'
+            'is_admin' => 'nullable|boolean',
+            'phone' => 'nullable|string|max:20'
         ]);
 
         if ($validator->fails()) {
@@ -42,7 +43,7 @@ class SettingController extends Controller
         $user = User::create([
             'name' => $validated['name'],
             'email' => $validated['email'],
-            'phone_number' => $validated['phone'],
+            'phone_number' => $validated['phone'] ?? null,
             'department_id' => $validated['department_id'],
             'admin' => $validated['is_admin'] ?? 0,
             'password' => bcrypt('123456')
@@ -58,6 +59,7 @@ class SettingController extends Controller
             'is_admin' => $user->admin == 1
         ]);
     }
+
 
     public function deleteUsers(Request $request)
     {
@@ -77,16 +79,17 @@ class SettingController extends Controller
             'id' => 'required|exists:users,id',
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email,' . $request->id,
-            'phone' => 'required|string|max:20',
+            'phone' => 'nullable|string|max:20',
             'department_id' => 'required|exists:departments,id',
             'is_admin' => 'nullable|boolean'
         ]);
 
         $user = User::find($validated['id']);
+
         $user->update([
             'name' => $validated['name'],
             'email' => $validated['email'],
-            'phone_number' => $validated['phone'],
+            'phone_number' => $validated['phone'] ?? null,
             'department_id' => $validated['department_id'],
             'admin' => $validated['is_admin'] ?? 0
         ]);
