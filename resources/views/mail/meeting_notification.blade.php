@@ -45,7 +45,7 @@
     </tr>
     <tr>
         <td style="white-space: nowrap;"><strong>Yêu cầu biên bản họp:</strong></td>
-        <td>{{ $meeting->result_record_location ? 'Có' : 'Không' }}</td>
+        <td>{{ $meeting->result_record_location }}</td>
     </tr>
 </table>
 
