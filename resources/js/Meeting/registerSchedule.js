@@ -25,7 +25,7 @@ $(document).ready(function () {
     const selectNames = ['related_people[]', 'specialists[]', 'advisors[]', 'secretaries[]'];
     selectNames.forEach(name => {
         const $select = $(`select[name="${name}"]`);
-        $select.select2({ placeholder: "Chọn người", width: '100%' });
+        $select.select2({ placeholder: "Chọn thành phần", width: '100%' });
         $select.on('change', () => clearError($select));
     });
 
