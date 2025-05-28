@@ -14,7 +14,7 @@ use Illuminate\Validation\ValidationException;
 
 class SettingController extends Controller
 {
-    // NGƯỜI DÙNG
+// NGƯỜI DÙNG
     public function showUserManager()
     {
         $users = User::with('department')->get();
@@ -107,7 +107,7 @@ class SettingController extends Controller
         ]);
     }
 
-    // PHÒNG BAN
+// PHÒNG BAN
     public function showDepartmentManager()
     {
         $departments = Department::all(); // Lấy toàn bộ phòng ban
@@ -141,7 +141,7 @@ class SettingController extends Controller
 
         return response()->json(['message' => 'Xóa thành công']);
     }
-    // PHÒNG HỌP
+// PHÒNG HỌP
     public function showMeetingRoomManager()
     {
         $meetingRooms = MeetingRoom::with('creator')->get(); // eager load user tạo
@@ -187,115 +187,115 @@ class SettingController extends Controller
         ]);
     }
 
-    // PHÂN QUYỀN
-        public function showRoleManager()
-        {
-            $roles = Role::withCount('users')->get(); // Nếu muốn đếm số user, dùng withCount
-            $users = User::all();
-            $roleUsers = RoleUser::with(['user', 'role'])->get();
-            return view('pages.setting.roleManager', compact('roles', 'users', 'roleUsers'));
-        }
+// PHÂN QUYỀN
+    public function showRoleManager()
+    {
+        $roles = Role::withCount('users')->get(); // Nếu muốn đếm số user, dùng withCount
+        $users = User::all();
+        $roleUsers = RoleUser::with(['user', 'role'])->get();
+        return view('pages.setting.roleManager', compact('roles', 'users', 'roleUsers'));
+    }
 
-        public function addAllRoleManager(Request $request)
-        {
-            $request->validate([
-                'role' => 'required|string|exists:roles,name'
-            ]);
+    public function addAllRoleManager(Request $request)
+    {
+        $request->validate([
+            'role' => 'required|string|exists:roles,name'
+        ]);
 
-            $role = Role::where('name', $request->role)->firstOrFail();
-            $allUsers = User::all();
+        $role = Role::where('name', $request->role)->firstOrFail();
+        $allUsers = User::all();
 
-            $addedCount = 0;
-            $newlyAddedUsers = [];
+        $addedCount = 0;
+        $newlyAddedUsers = [];
 
-            foreach ($allUsers as $user) {
-                // ❗ Kiểm tra nếu user đã có bất kỳ role nào → bỏ qua
-                $alreadyHas = RoleUser::where('user_id', $user->id)->exists();
-
-                if (!$alreadyHas) {
-                    $pivot = RoleUser::create([
-                        'user_id' => $user->id,
-                        'role_id' => $role->id,
-                    ]);
-
-                    $addedCount++;
-
-                    $newlyAddedUsers[] = [
-                        'name' => $user->name,
-                        'role' => $role->display_name,
-                        'pivot_id' => $pivot->user_id,
-                    ];
-                }
-            }
-
-            if ($addedCount === 0) {
-                return response()->json([
-                    'success' => false,
-                    'message' => "Tất cả người dùng đã có quyền. Mỗi người chỉ được có 1 quyền duy nhất."
-                ]);
-            }
-
-            return response()->json([
-                'success' => true,
-                'message' => "Đã gán quyền '{$role->display_name}' cho {$addedCount} người dùng.",
-                'users' => $newlyAddedUsers
-            ]);
-        }
-
-        public function deleteRoleManager(Request $request)
-        {
-            $request->validate([
-                'user_id' => 'required|exists:users,id'
-            ]);
-
-            $deleted = RoleUser::where('user_id', $request->user_id)->delete();
-
-            if ($deleted) {
-                return response()->json([
-                    'success' => true,
-                    'message' => 'Đã xoá phân quyền của người dùng.'
-                ]);
-            }
-
-            return response()->json([
-                'success' => false,
-                'message' => 'Người dùng này không có phân quyền để xoá.'
-            ]);
-        }
-
-        public function addRoleManagerSingle(Request $request)
-        {
-            $request->validate([
-                'user_id' => 'required|exists:users,id',
-                'role_id' => 'required|exists:roles,id'
-            ]);
-
-            $user = User::findOrFail($request->user_id);
-            $role = Role::findOrFail($request->role_id);
-
-            // ❗ Kiểm tra nếu user đã có bất kỳ role nào
+        foreach ($allUsers as $user) {
+            // ❗ Kiểm tra nếu user đã có bất kỳ role nào → bỏ qua
             $alreadyHas = RoleUser::where('user_id', $user->id)->exists();
 
-            if ($alreadyHas) {
-                return response()->json([
-                    'success' => false,
-                    'message' => "Người dùng '{$user->name}' đã có phân quyền, không thể gán thêm."
+            if (!$alreadyHas) {
+                $pivot = RoleUser::create([
+                    'user_id' => $user->id,
+                    'role_id' => $role->id,
                 ]);
-            }
 
-            $pivot = RoleUser::create([
-                'user_id' => $user->id,
-                'role_id' => $role->id,
-            ]);
+                $addedCount++;
 
-            return response()->json([
-                'success' => true,
-                'message' => "Đã gán quyền '{$role->display_name}' cho người dùng '{$user->name}'.",
-                'user' => [
+                $newlyAddedUsers[] = [
                     'name' => $user->name,
                     'role' => $role->display_name,
-                    'pivot_id' => $pivot->user_id
-                ]
+                    'pivot_id' => $pivot->user_id,
+                ];
+            }
+        }
+
+        if ($addedCount === 0) {
+            return response()->json([
+                'success' => false,
+                'message' => "Tất cả người dùng đã có quyền. Mỗi người chỉ được có 1 quyền duy nhất."
             ]);
         }
+
+        return response()->json([
+            'success' => true,
+            'message' => "Đã gán quyền '{$role->display_name}' cho {$addedCount} người dùng.",
+            'users' => $newlyAddedUsers
+        ]);
+    }
+
+    public function deleteRoleManager(Request $request)
+    {
+        $request->validate([
+            'user_id' => 'required|exists:users,id'
+        ]);
+
+        $deleted = RoleUser::where('user_id', $request->user_id)->delete();
+
+        if ($deleted) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Đã xoá phân quyền của người dùng.'
+            ]);
+        }
+
+        return response()->json([
+            'success' => false,
+            'message' => 'Người dùng này không có phân quyền để xoá.'
+        ]);
+    }
+
+    public function addRoleManagerSingle(Request $request)
+    {
+        $request->validate([
+            'user_id' => 'required|exists:users,id',
+            'role_id' => 'required|exists:roles,id'
+        ]);
+
+        $user = User::findOrFail($request->user_id);
+        $role = Role::findOrFail($request->role_id);
+
+        // ❗ Kiểm tra nếu user đã có bất kỳ role nào
+        $alreadyHas = RoleUser::where('user_id', $user->id)->exists();
+
+        if ($alreadyHas) {
+            return response()->json([
+                'success' => false,
+                'message' => "Người dùng '{$user->name}' đã có phân quyền, không thể gán thêm."
+            ]);
+        }
+
+        $pivot = RoleUser::create([
+            'user_id' => $user->id,
+            'role_id' => $role->id,
+        ]);
+
+        return response()->json([
+            'success' => true,
+            'message' => "Đã gán quyền '{$role->display_name}' cho người dùng '{$user->name}'.",
+            'user' => [
+                'name' => $user->name,
+                'role' => $role->display_name,
+                'pivot_id' => $pivot->user_id
+            ]
+        ]);
+    }
 }

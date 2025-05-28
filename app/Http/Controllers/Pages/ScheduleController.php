@@ -3,12 +3,14 @@
 namespace App\Http\Controllers\Pages;
 
 use App\Http\Controllers\Controller;
+use App\Mail\MeetingNotificationMail;
 use App\Models\MeetingHistory;
 use App\Models\MeetingRoom;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class ScheduleController extends Controller
 {
@@ -28,10 +30,11 @@ class ScheduleController extends Controller
         return view('Pages.meeting.managerMeetingSchedule', compact('histories'));
     }
 
-    public function showRegisterSchedule(){
+    public function showRegisterSchedule()
+    {
         $meetingRooms = MeetingRoom::all();
         $users = User::all();
-        return view('Pages.meeting.registerMeetingSchedule', compact('meetingRooms','users'));
+        return view('Pages.meeting.registerMeetingSchedule', compact('meetingRooms', 'users'));
     }
 
     public function handleRegisterSchedule(Request $request)
@@ -46,13 +49,13 @@ class ScheduleController extends Controller
             ->where(function ($query) use ($start, $end) {
                 $query->where(function ($q) use ($start) {
                     $q->where('start_time', '<=', $start->format('H:i:s'))
-                    ->where('end_time', '>', $start->format('H:i:s'));
+                        ->where('end_time', '>', $start->format('H:i:s'));
                 })->orWhere(function ($q) use ($end) {
                     $q->where('start_time', '<', $end->format('H:i:s'))
-                    ->where('end_time', '>=', $end->format('H:i:s'));
+                        ->where('end_time', '>=', $end->format('H:i:s'));
                 })->orWhere(function ($q) use ($start, $end) {
                     $q->where('start_time', '>=', $start->format('H:i:s'))
-                    ->where('end_time', '<=', $end->format('H:i:s'));
+                        ->where('end_time', '<=', $end->format('H:i:s'));
                 });
             })
             ->first();
@@ -77,13 +80,13 @@ class ScheduleController extends Controller
             ->where(function ($query) use ($start, $end) {
                 $query->where(function ($q) use ($start) {
                     $q->where('start_time', '<=', $start->format('H:i:s'))
-                    ->where('end_time', '>', $start->format('H:i:s'));
+                        ->where('end_time', '>', $start->format('H:i:s'));
                 })->orWhere(function ($q) use ($end) {
                     $q->where('start_time', '<', $end->format('H:i:s'))
-                    ->where('end_time', '>=', $end->format('H:i:s'));
+                        ->where('end_time', '>=', $end->format('H:i:s'));
                 })->orWhere(function ($q) use ($start, $end) {
                     $q->where('start_time', '>=', $start->format('H:i:s'))
-                    ->where('end_time', '<=', $end->format('H:i:s'));
+                        ->where('end_time', '<=', $end->format('H:i:s'));
                 });
             })
             ->get()
@@ -114,16 +117,55 @@ class ScheduleController extends Controller
             ], 409);
         }
 
-        // 4. Xử lý file
+        // 4. Xử lý file đính kèm
         $attachmentPath = null;
         if ($request->hasFile('attachment')) {
             $file = $request->file('attachment');
             $fileName = uniqid() . '_' . time() . '.' . $file->getClientOriginalExtension();
-            $file->move(public_path('file'), $fileName); // lưu vào public/file
-            $attachmentPath = 'file/' . $fileName; // lưu đường dẫn tương đối
+            $file->move(public_path('file'), $fileName);
+            $attachmentPath = 'file/' . $fileName;
         }
 
-        // 5. Lưu lịch họp
+        // 5. Chuẩn bị gửi mail trước khi lưu
+        try {
+            $creator = auth()->user();
+            $fakeMeeting = (object) [
+                'title' => $request->title,
+                'start_time' => $start->format('H:i:s'),
+                'end_time' => $end->format('H:i:s'),
+                'date' => $date,
+                'moderator' => $request->moderator,
+                'note' => $request->note,
+                'devices' => $request->devices,
+                'result_record_location' => $request->result_record_location,
+                'meetingRoom' => MeetingRoom::find($request->meeting_room_id),
+
+                // ✅ ép chuỗi JSON thành array:
+                'related_users' => json_decode($request->related_people, true),
+                'specialist_users' => json_decode($request->specialists, true),
+                'advisor_users' => json_decode($request->advisors, true),
+                'secretary_users' => json_decode($request->secretaries, true),
+                'decision_maker_id' => $request->decision_maker,
+            ];
+
+
+            $emails = User::whereIn('id', $allUserIds)->pluck('email')->filter()->toArray();
+
+            if (empty($emails)) {
+                return response()->json([
+                    'message' => 'Không có email người nhận hợp lệ để gửi thông báo.'
+                ], 422);
+            }
+
+            Mail::to($emails)->cc($creator->email)->send(new MeetingNotificationMail($fakeMeeting));
+        } catch (\Exception $e) {
+            \Log::error('Gửi mail thất bại: ' . $e->getMessage());
+            return response()->json([
+                'message' => 'Gửi mail thất bại. Cuộc họp chưa được tạo.'
+            ], 500);
+        }
+
+        // 6. Lưu lịch họp khi mail thành công
         $history = MeetingHistory::create([
             'meeting_room_id'        => $request->meeting_room_id,
             'title'                  => $request->title,
@@ -133,6 +175,7 @@ class ScheduleController extends Controller
             'related_users'          => json_decode($request->related_people, true),
             'specialist_users'       => json_decode($request->specialists, true),
             'secretary_users'        => json_decode($request->secretaries, true),
+            'advisor_users'          => json_decode($request->advisors, true),
             'decision_maker_id'      => $request->decision_maker,
             'moderator'              => $request->moderator,
             'note'                   => $request->note,
@@ -140,15 +183,14 @@ class ScheduleController extends Controller
             'result_record_location' => $request->result_record_location,
             'attachment_path'        => $attachmentPath,
             'created_by'             => auth()->id(),
-            'advisor_users' => json_decode($request->advisors, true) ?? [],
-
         ]);
 
         return response()->json([
-            'message' => 'Lịch họp đã được lưu thành công!',
+            'message' => 'Lịch họp đã được tạo và email đã gửi thành công.',
             'data' => $history
         ]);
     }
+
 
     public function showEditSchedule($id)
     {
@@ -184,13 +226,13 @@ class ScheduleController extends Controller
             ->where(function ($query) use ($start, $end) {
                 $query->where(function ($q) use ($start) {
                     $q->where('start_time', '<=', $start->format('H:i:s'))
-                    ->where('end_time', '>', $start->format('H:i:s'));
+                        ->where('end_time', '>', $start->format('H:i:s'));
                 })->orWhere(function ($q) use ($end) {
                     $q->where('start_time', '<', $end->format('H:i:s'))
-                    ->where('end_time', '>=', $end->format('H:i:s'));
+                        ->where('end_time', '>=', $end->format('H:i:s'));
                 })->orWhere(function ($q) use ($start, $end) {
                     $q->where('start_time', '>=', $start->format('H:i:s'))
-                    ->where('end_time', '<=', $end->format('H:i:s'));
+                        ->where('end_time', '<=', $end->format('H:i:s'));
                 });
             })
             ->first();
@@ -216,13 +258,13 @@ class ScheduleController extends Controller
             ->where(function ($query) use ($start, $end) {
                 $query->where(function ($q) use ($start) {
                     $q->where('start_time', '<=', $start->format('H:i:s'))
-                    ->where('end_time', '>', $start->format('H:i:s'));
+                        ->where('end_time', '>', $start->format('H:i:s'));
                 })->orWhere(function ($q) use ($end) {
                     $q->where('start_time', '<', $end->format('H:i:s'))
-                    ->where('end_time', '>=', $end->format('H:i:s'));
+                        ->where('end_time', '>=', $end->format('H:i:s'));
                 })->orWhere(function ($q) use ($start, $end) {
                     $q->where('start_time', '>=', $start->format('H:i:s'))
-                    ->where('end_time', '<=', $end->format('H:i:s'));
+                        ->where('end_time', '<=', $end->format('H:i:s'));
                 });
             })
             ->get()
@@ -365,5 +407,4 @@ class ScheduleController extends Controller
 
         return response()->json($result);
     }
-
 }

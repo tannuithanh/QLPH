@@ -3,6 +3,8 @@
 use App\Http\Controllers\Pages\SettingController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Mail\MeetingNotificationMail;
+use Illuminate\Support\Facades\Mail;
 
 Route::get('/users_manager', [SettingController::class, 'showUserManager'])->middleware('auth')->name('showUserManager');
 Route::Post('/add_users', [SettingController::class, 'addUsers'])->middleware('auth')->name('addUsers');
@@ -25,3 +27,11 @@ Route::get('/role_manager', [SettingController::class, 'showRoleManager'])->midd
 Route::post('/add_all_role_manager', [SettingController::class, 'addAllRoleManager'])->middleware('auth')->name('addAllRoleManager');
 Route::post('/delete_role_manager', [SettingController::class, 'deleteRoleManager'])->middleware('auth')->name('deleteRoleManager');
 Route::post('/add_role_manager_single', [SettingController::class, 'addRoleManagerSingle'])->middleware('auth')->name('addRoleManagerSingle');
+
+Route::get('/test-mail', function () {
+    $meeting = \App\Models\MeetingHistory::latest()->first(); // hoặc fake
+    Mail::to('tannguyen3502@gmail.com')
+        ->send(new MeetingNotificationMail($meeting));
+
+    return '✅ Mail đã gửi';
+});
