@@ -28,7 +28,8 @@ class MeetingHistory extends Model
         'secretary_users',
         'attachment_path',
         'result_record_location',
-        'created_by'
+        'created_by',
+        'devices'
     ];
 
     protected $casts = [

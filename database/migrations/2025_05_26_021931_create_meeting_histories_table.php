@@ -13,6 +13,8 @@ return new class extends Migration {
             // Liên kết phòng họp
             $table->foreignId('meeting_room_id')->constrained('meeting_rooms')->onDelete('cascade');
 
+            $table->string('devices')->nullable(); 
+
             // Nội dung cuộc họp
             $table->string('title');
 

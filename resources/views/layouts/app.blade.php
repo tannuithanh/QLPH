@@ -6,6 +6,7 @@
     <title>@yield('title', 'Laravel App')</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link rel="icon" href="{{ asset('Favicon.ico') }}" type="image/x-icon">
     {{-- CSS của bạn --}}
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
     @yield('styles')

@@ -17,10 +17,12 @@ class MeetingNotificationMail extends Mailable
     public $advisorUserNames;
     public $secretaryUserNames;
     public $decisionMakerName;
+    public $customSubject;
 
-    public function __construct($meeting)
+    public function __construct($meeting, $customSubject = null)
     {
         $this->meeting = $meeting;
+        $this->customSubject = $customSubject;
 
         $this->relatedUserNames = User::whereIn('id', $meeting->related_users ?? [])->pluck('name')->toArray();
         $this->specialistUserNames = User::whereIn('id', $meeting->specialist_users ?? [])->pluck('name')->toArray();
@@ -35,7 +37,7 @@ class MeetingNotificationMail extends Mailable
         $end = \Carbon\Carbon::parse($this->meeting->end_time)->format('H:i');
         $date = \Carbon\Carbon::parse($this->meeting->date)->format('d/m/Y');
 
-        $subject = "📅 Mời họp ngày {$date} {$start} - {$end}";
+        $subject = $this->customSubject ?: "📅 Mời họp ngày {$date} {$start} - {$end}";
 
         return $this->subject($subject)
                     ->view('mail.meeting_notification')

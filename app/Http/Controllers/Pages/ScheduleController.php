@@ -214,7 +214,7 @@ class ScheduleController extends Controller
         ]);
 
         $meeting = MeetingHistory::findOrFail($request->id);
-
+        // dd($request->devices);
         $start = Carbon::parse($request->start_datetime);
         $end = Carbon::parse($request->end_datetime);
         $date = $start->toDateString();
@@ -325,8 +325,45 @@ class ScheduleController extends Controller
             'attachment_path'        => $attachmentPath,
         ]);
 
+        try {
+            $creator = auth()->user();
+            $emails = User::whereIn('id', $allUserIds)->pluck('email')->filter()->toArray();
+
+            if (empty($emails)) {
+                return response()->json([
+                    'message' => 'Không có email người nhận hợp lệ để gửi thông báo cập nhật.'
+                ], 422);
+            }
+
+            $fakeMeeting = (object) [
+                'title' => $request->title,
+                'start_time' => $start->format('H:i:s'),
+                'end_time' => $end->format('H:i:s'),
+                'date' => $date,
+                'moderator' => $request->moderator,
+                'note' => $request->note,
+                'devices' => $request->devices,
+                'result_record_location' => $request->result_record_location,
+                'meetingRoom' => MeetingRoom::find($request->meeting_room_id),
+                'related_users' => json_decode($request->related_people, true),
+                'specialist_users' => json_decode($request->specialists, true),
+                'advisor_users' => json_decode($request->advisors, true),
+                'secretary_users' => json_decode($request->secretaries, true),
+                'decision_maker_id' => $request->decision_maker,
+            ];
+
+            $customSubject = "📢 Cập nhật lịch họp ngày " . $start->format('d/m/Y') . " {$start->format('H:i')} - {$end->format('H:i')}";
+
+            Mail::to($emails)->cc($creator->email)->send(new MeetingNotificationMail($fakeMeeting, $customSubject));
+        } catch (\Exception $e) {
+            \Log::error('Gửi mail cập nhật lịch họp thất bại: ' . $e->getMessage());
+            return response()->json([
+                'message' => 'Cập nhật thành công, nhưng gửi mail thất bại.'
+            ], 500);
+        }
+
         return response()->json([
-            'message' => 'Cập nhật lịch họp thành công!',
+            'message' => 'Cập nhật lịch họp thành công và gửi mail thành công.',
             'data' => $meeting
         ]);
     }
