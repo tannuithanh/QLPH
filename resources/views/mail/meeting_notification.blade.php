@@ -44,7 +44,7 @@
         <td>{{ $decisionMakerName }}</td>
     </tr>
     <tr>
-        <td style="white-space: nowrap;"><strong>Yêu cầu biên bản họp:</strong></td>
+        <td style="white-space: nowrap;"><strong>Nơi ghi nhận kết quả:</strong></td>
         <td>{{ $meeting->result_record_location }}</td>
     </tr>
 </table>

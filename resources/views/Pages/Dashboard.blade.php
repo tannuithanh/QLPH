@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Lịch họp - Cty TNHH Vinh Gia')
+@section('title', 'Lịch Họp - Cty TNHH Vinh Gia')
 
 @section('content')
     <div class="d-flex justify-content-between align-items-center mb-4">

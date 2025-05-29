@@ -162,7 +162,7 @@
     </div>
     <b><i class="text-danger underline">Lưu ý:</i></b><br>
 
-    - Cột Thành phân chuyên môn và thành phần tư vấn nếu không có thì được quyền để trống, không cần chọn.<br>
+    - Cột Thành phần chuyên môn và thành phần tư vấn nếu không có thì được quyền để trống, không cần chọn.<br>
     - Cột Người liên quan và Người quyết định bắt buộc phải chọn<br>
     - Các thành phần không được trùng nhau, nếu đã là Người liên quan thì không được chọn ở các thành phần khác.<br>
     - Người đăng ký lịch họp không cần chọn ở các thành phần khác, trừ khi là book lịch giúp cho BGĐ/BĐH.<br>
