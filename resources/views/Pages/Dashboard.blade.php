@@ -27,7 +27,7 @@
                         <div class="table-responsive">
                             <table class="table table-bordered" id="userTable">
                                 <thead>
-                                    <tr >
+                                    <tr>
                                         <th style="width:150px;text-align:center; vertical-align:middle" rowspan="2">
                                             Phòng họp
                                         </th>
@@ -79,7 +79,7 @@
                                         <th style="width:100px;text-align:center; vertical-align:middle" rowspan="2">
                                             Thời gian tạo
                                         </th>
-                                        
+
                                     </tr>
                                     <tr>
                                         <th style="width:100px;text-align:center; vertical-align:middle">
@@ -90,78 +90,77 @@
                                         </th>
                                     </tr>
                                 </thead>
-                                                            <tbody id="data" >
-                                @foreach ($histories as $item)
-                                    <tr>
-                                        <td style="text-align:center">{{ $item->meetingRoom->name ?? '-' }}</td>
+                                <tbody id="data">
+                                    @foreach ($histories as $item)
+                                        <tr>
+                                            <td style="text-align:center">{{ $item->meetingRoom->name ?? '-' }}</td>
 
-                                        {{-- Ngày --}}
-                                        <td style="text-align:center">{{ \Carbon\Carbon::parse($item->date)->format('d/m/Y') }}</td>
+                                            {{-- Ngày --}}
+                                            <td style="text-align:center">
+                                                {{ \Carbon\Carbon::parse($item->date)->format('d/m/Y') }}</td>
 
-                                        {{-- Giờ --}}
-                                        <td style="text-align:center">
-                                            {{ \Carbon\Carbon::parse($item->start_time)->format('H:i') }} → {{ \Carbon\Carbon::parse($item->end_time)->format('H:i') }}
-                                        </td>
+                                            {{-- Giờ --}}
+                                            <td style="text-align:center">
+                                                {{ \Carbon\Carbon::parse($item->start_time)->format('H:i') }} →
+                                                {{ \Carbon\Carbon::parse($item->end_time)->format('H:i') }}
+                                            </td>
 
-                                        <td>{{ $item->title }}</td>
-                                        <td style="text-align:center">{{ $item->moderator }}</td>
+                                            <td>{{ $item->title }}</td>
+                                            <td style="text-align:center">{{ $item->moderator }}</td>
 
-                                        {{-- Người liên quan --}}
-                                        <td>
-                                            @foreach ($item->relatedUsers() as $userData)
-                                                <div>{{ $userData->name }}</div>
-                                            @endforeach
-                                        </td>
+                                            {{-- Người liên quan --}}
+                                            <td>
+                                                {{ $item->specialistUsers()->pluck('name')->join(', ') }}
+                                            </td>
 
-                                        <td>{{ $item->devices }}</td>
 
-                                        {{-- Thành phần chuyên môn --}}
-                                        <td>
-                                            @foreach ($item->specialistUsers() as $userData)
-                                                <div>{{ $userData->name }}</div>
-                                            @endforeach
-                                        </td>
+                                            <td>{{ $item->devices }}</td>
 
-                                        {{-- Thành phần tư vấn --}}
-                                        <td>
-                                             @foreach ($item->advisorUsers() as $userData)
-                                                <div>{{ $userData->name }}</div>
-                                            @endforeach
-                                        </td>
+                                            {{-- Thành phần chuyên môn --}}
+                                            <td>
+                                                {{ $item->specialistUsers()->pluck('name')->join(', ') }}
+                                            </td>
 
-                                        {{-- Người quyết định --}}
-                                        <td style="text-align:center">{{ $item->decisionMaker->name ?? '-' }}</td>
 
-                                        {{-- Thư ký --}}
-                                        <td>
-                                            @foreach ($item->secretaryUsers() as $userData)
-                                                <div>{{ $userData->name }}</div>
-                                            @endforeach
-                                        </td>
+                                            {{-- Thành phần tư vấn --}}
+                                            <td>
+                                                {{ $item->advisorUsers()->pluck('name')->join(', ') }}
+                                            </td>
 
-                                        <td>{{ $item->note }}</td>
 
-                                        {{-- Tệp tin đính kèm --}}
-                                        <td>
-                                            @if ($item->attachment_path)
-                                                <a hresult_record_locationf="{{ asset($item->attachment_path) }}" target="_blank">Tải xuống</a>
-                                            @else
-                                                Không có
-                                            @endif
-                                        </td>
-                                        <td>{{ $item->result_record_location }}</td>
-                                        {{-- Người tạo --}}
-                                        <td style="text-align:center">
-                                            {{ \App\Models\User::find($item->created_by)?->name ?? '-' }}
-                                        </td>
+                                            {{-- Người quyết định --}}
+                                            <td style="text-align:center">{{ $item->decisionMaker->name ?? '-' }}</td>
 
-                                        {{-- Thời gian tạo --}}
-                                        <td style="text-align:center">
-                                            {{ $item->created_at->format('d/m/Y H:i') }}
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
+                                            {{-- Thư ký --}}
+                                            <td>
+                                                {{ $item->secretaryUsers()->pluck('name')->join(', ') }}
+                                            </td>
+
+
+                                            <td>{{ $item->note }}</td>
+
+                                            {{-- Tệp tin đính kèm --}}
+                                            <td>
+                                                @if ($item->attachment_path)
+                                                    <a hresult_record_locationf="{{ asset($item->attachment_path) }}"
+                                                        target="_blank">Tải xuống</a>
+                                                @else
+                                                    Không có
+                                                @endif
+                                            </td>
+                                            <td>{{ $item->result_record_location }}</td>
+                                            {{-- Người tạo --}}
+                                            <td style="text-align:center">
+                                                {{ \App\Models\User::find($item->created_by)?->name ?? '-' }}
+                                            </td>
+
+                                            {{-- Thời gian tạo --}}
+                                            <td style="text-align:center">
+                                                {{ $item->created_at->format('d/m/Y H:i') }}
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
 
                             </table>
                         </div>

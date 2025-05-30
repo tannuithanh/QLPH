@@ -126,35 +126,29 @@
 
                                         {{-- Người liên quan --}}
                                         <td>
-                                            @foreach ($item->relatedUsers() as $userData)
-                                                <div>{{ $userData->name }}</div>
-                                            @endforeach
+                                            {{ $item->relatedUsers()->pluck('name')->join(', ') }}
                                         </td>
 
                                         <td>{{ $item->devices }}</td>
 
                                         {{-- Thành phần chuyên môn --}}
                                         <td>
-                                            @foreach ($item->specialistUsers() as $userData)
-                                                <div>{{ $userData->name }}</div>
-                                            @endforeach
+                                            {{ $item->specialistUsers()->pluck('name')->join(', ') }}
                                         </td>
+
 
                                         {{-- Thành phần tư vấn --}}
                                         <td>
-                                            @foreach ($item->advisorUsers() as $userData)
-                                                <div>{{ $userData->name }}</div>
-                                            @endforeach
+                                            {{ $item->advisorUsers()->pluck('name')->join(', ') }}
                                         </td>
+
 
                                         {{-- Người quyết định --}}
                                         <td style="text-align:center">{{ $item->decisionMaker->name ?? '-' }}</td>
 
                                         {{-- Thư ký --}}
                                         <td>
-                                            @foreach ($item->secretaryUsers() as $userData)
-                                                <div>{{ $userData->name }}</div>
-                                            @endforeach
+                                            {{ $item->secretaryUsers()->pluck('name')->join(', ') }}
                                         </td>
 
                                         <td>{{ $item->note }}</td>
