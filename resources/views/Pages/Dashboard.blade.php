@@ -25,7 +25,7 @@
                     <h5 class="title-vinhgia">Danh sách lịch họp hôm nay</h4>
                         {{-- Bảng nhân sự --}}
                         <div class="table-responsive">
-                            <table class="table table-bordered" id="userTable">
+                            <table class="table-vinhgia" id="userTable">
                                 <thead>
                                     <tr >
                                         <th style="width:150px;text-align:center; vertical-align:middle" rowspan="2">
@@ -107,19 +107,19 @@
                                         <td style="text-align:center">{{ $item->moderator }}</td>
 
                                         {{-- Người liên quan --}}
-                                        <td>
+                                        <td style="white-space: normal">
                                             {{ $item->relatedUsers()->pluck('name')->join(', ') }}
                                         </td>
 
                                         <td>{{ $item->devices }}</td>
 
                                         {{-- Thành phần chuyên môn --}}
-                                        <td>
+                                        <td style="white-space: normal">
                                             {{ $item->specialistUsers()->pluck('name')->join(', ') }}
                                         </td>
 
                                         {{-- Thành phần tư vấn --}}
-                                        <td>
+                                        <td style="white-space: normal">
                                             {{ $item->advisorUsers()->pluck('name')->join(', ') }}
                                         </td>
 
@@ -131,7 +131,7 @@
                                             {{ $item->secretaryUsers()->pluck('name')->join(', ') }}
                                         </td>
 
-                                        <td>{{ $item->note }}</td>
+                                        <td style="white-space: normal">{{ $item->note }}</td>
 
                                         {{-- Tệp tin đính kèm --}}
                                         <td>
