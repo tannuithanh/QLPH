@@ -18,7 +18,7 @@ class ScheduleController extends Controller
     {
         // Ngày đầu tuần (thứ 2) của tuần hiện tại
         $today = Carbon::today();
-        $startOfWeek = $today->startOfWeek(Carbon::MONDAY)->toDateString();
+        $startOfWeek = $today->toDateString();
 
         // Lấy dữ liệu từ ngày đầu tuần trở đi
         $histories = MeetingHistory::with(['meetingRoom', 'decisionMaker'])
