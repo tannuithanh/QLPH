@@ -39,7 +39,7 @@
                     <h5 class="title-vinhgia">Danh sách lịch họp</h5>
                     {{-- Bảng nhân sự --}}
                     <div class="table-responsive">
-                        <table class="table table-bordered" id="userTable">
+                        <table class="table-vinhgia" id="userTable">
                             <thead class="thead-light">
                                 <tr style="border: 1px solid #f3f3f3">
                                     <th style="width:150px;text-align:center; vertical-align:middle" rowspan="2">
