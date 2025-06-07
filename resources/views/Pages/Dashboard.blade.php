@@ -40,7 +40,7 @@
                                         <th style="width:150px;text-align:center; vertical-align:middle" rowspan="2">
                                             Chủ trì
                                         </th>
-                                        <th style="width:250px;text-align:center; vertical-align:middle" rowspan="2">
+                                        <th style="width:200px;text-align:center; vertical-align:middle" rowspan="2">
                                             Người liên quan trực tiếp
                                         </th>
                                         <th style="width:150px;text-align:center; vertical-align:middle" rowspan="2">
