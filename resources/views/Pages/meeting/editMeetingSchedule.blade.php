@@ -150,7 +150,7 @@
                             <input type="file" class="form-control" name="attachment">
                             @if ($history->attachment_path)
                                 <small class="text-muted">File hiện tại:
-                                    <a href="{{ asset($history->attachment_path) }}" target="_blank">Tải xuống</a>
+                                    <a href="{{ asset($history->attachment_path) }}" target="_blank">Tải File</a>
                                 </small>
                             @endif
                         </div>

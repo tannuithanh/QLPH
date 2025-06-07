@@ -106,7 +106,7 @@ $(document).ready(function () {
                             <td>${secretary}</td>
                             <td>${item.note}</td>
                             <td>
-                                ${item.attachment_path ? `<a href="${item.attachment_path}" target="_blank">Tải xuống</a>` : 'Không có'}
+                                ${item.attachment_path ? `<a href="${item.attachment_path}" target="_blank">Tải File</a>` : 'Không có'}
                             </td>
                             <td style="text-align:center">${item.creator}</td>
                             <td style="text-align:center">${item.created_at}</td>

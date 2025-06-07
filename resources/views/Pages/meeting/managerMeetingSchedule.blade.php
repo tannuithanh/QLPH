@@ -156,7 +156,7 @@
                                         {{-- Tệp tin đính kèm --}}
                                         <td>
                                             @if ($item->attachment_path)
-                                                <a href="{{ asset($item->attachment_path) }}" target="_blank">Tải xuống</a>
+                                                <a href="{{ asset($item->attachment_path) }}" target="_blank">Tải File</a>
                                             @else
                                                 Không có
                                             @endif

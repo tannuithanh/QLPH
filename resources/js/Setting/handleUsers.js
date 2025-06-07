@@ -68,8 +68,8 @@ document.addEventListener('DOMContentLoaded', function () {
                     <td>${data.phone ?? '---'}</td>
                     <td>
                         ${data.is_admin
-                                    ? '<span class="badge bg-success">✓</span>'
-                                    : '<span class="badge bg-secondary">-</span>'}
+                        ? '<span class="badge bg-success">✓</span>'
+                        : '<span class="badge bg-secondary">-</span>'}
                     </td>
                     <td>
                         <a href="#" class="btn btn-sm btn-primary edit-user-btn" data-bs-toggle="modal" data-bs-target="#editUserModal" data-id="${data.user_id}">Sửa</a>
@@ -116,12 +116,12 @@ document.getElementById('data').addEventListener('click', function (e) {
                 },
                 body: JSON.stringify({ id })
             })
-            .then(res => {
-                if (!res.ok) throw new Error('Xoá thất bại');
-                row.remove();
-                toastr.success('Đã xoá nhân sự thành công!');
-            })
-            .catch(err => toastr.error(err.message));
+                .then(res => {
+                    if (!res.ok) throw new Error('Xoá thất bại');
+                    row.remove();
+                    toastr.success('Đã xoá nhân sự thành công!');
+                })
+                .catch(err => toastr.error(err.message));
         });
     }
 
@@ -223,3 +223,24 @@ function closeModal(modalEl) {
     document.body.style = '';
     document.querySelectorAll('.modal-backdrop').forEach(el => el.remove());
 }
+
+
+document.addEventListener("DOMContentLoaded", () => {
+    const searchInput = document.getElementById("userSearchInput");
+    const rows = document.querySelectorAll("#userTable tbody tr");
+
+    const filterRows = (term) => {
+        const keyword = term.toLowerCase().trim();
+
+        rows.forEach(row => {
+            const [, nameCell, emailCell] = row.cells;
+            const name = nameCell?.textContent.toLowerCase() || "";
+            const email = emailCell?.textContent.toLowerCase() || "";
+
+            const isMatch = name.includes(keyword) || email.includes(keyword);
+            row.style.display = isMatch ? "" : "none";
+        });
+    };
+
+    searchInput.addEventListener("input", e => filterRows(e.target.value));
+});
