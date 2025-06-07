@@ -125,20 +125,20 @@
                                         <td style="text-align:center">{{ $item->moderator }}</td>
 
                                         {{-- Người liên quan --}}
-                                        <td>
+                                        <td style="white-space: normal">
                                             {{ $item->relatedUsers()->pluck('name')->join(', ') }}
                                         </td>
 
-                                        <td>{{ $item->devices }}</td>
+                                        <td style="white-space: normal">{{ $item->devices }}</td>
 
                                         {{-- Thành phần chuyên môn --}}
-                                        <td>
+                                        <td style="white-space: normal">
                                             {{ $item->specialistUsers()->pluck('name')->join(', ') }}
                                         </td>
 
 
                                         {{-- Thành phần tư vấn --}}
-                                        <td>
+                                        <td style="white-space: normal">
                                             {{ $item->advisorUsers()->pluck('name')->join(', ') }}
                                         </td>
 
@@ -151,7 +151,7 @@
                                             {{ $item->secretaryUsers()->pluck('name')->join(', ') }}
                                         </td>
 
-                                        <td>{{ $item->note }}</td>
+                                        <td style="white-space: normal">{{ $item->note }}</td>
 
                                         {{-- Tệp tin đính kèm --}}
                                         <td>
